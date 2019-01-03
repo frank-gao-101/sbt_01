@@ -142,7 +142,7 @@ class RptDriver(data_in: String, data_out: String,
 
   def writeToCsv(df: DataFrame, prefix: String) = {
     val fn = data_out + "/" + prefix + "_" +
-      LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM.dd.yyyy-HHmmss.SSS"))
+      LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HHmmss.SSS"))
     logger.info(s"=== Report $fn has been generated.")
     df
       .repartition(1)
