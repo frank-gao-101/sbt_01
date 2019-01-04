@@ -1,11 +1,12 @@
 package com.amway.dms
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.functions._
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import org.apache.log4j.{Level, Logger}
+
 import com.amway.dms.{Constants => C, Utils => U}
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /*
    step 1: add column month and/or quarter
@@ -19,13 +20,12 @@ class RptDriver(data_in: String, data_out: String,
                 hasRange: Boolean,
                 prefix: Option[String]) {
 
-  val prefix_s = prefix.get
-
   @transient lazy val logger = Logger.getLogger(getClass.getName)
+  val prefix_s = prefix.get
 
   def init() = {
     val spark = SparkSession.builder.appName("dms-reports")
-            .config("spark.master", "local")
+      .config("spark.master", "local")
       .getOrCreate()
 
     spark.sparkContext.setLogLevel("INFO")
@@ -64,7 +64,7 @@ class RptDriver(data_in: String, data_out: String,
   }
 
   def process_Range_Each(df: DataFrame, ele: (String, String)) {
-    val delim = ele._1.slice(4,5)
+    val delim = ele._1.slice(4, 5)
     val morq = if (ele._1 == ele._2) ele._1 else ele._1 + C.RANGE_DOTS + ele._2
     val freq = if (delim == C.M) C.MM else C.QQ
     val query_filter = (ele._1 == ele._2) match {
@@ -82,14 +82,14 @@ class RptDriver(data_in: String, data_out: String,
     freq_list.foreach(filterByEachFreq(dfm, mode, freq, _))
   }
 
-  def filterByEachFreq(df: DataFrame, mode:String, freq: String, each_freq:String) {
+  def filterByEachFreq(df: DataFrame, mode: String, freq: String, each_freq: String) {
     val query_filter = freq + " == '" + each_freq + "'"
     val df_each_freq = proc_step3(df.filter(query_filter).drop(freq))
 
     PreSink(df_each_freq, each_freq, mode, freq)
   }
 
-  def processNonRange(df: DataFrame, mode: String, freq: String){
+  def processNonRange(df: DataFrame, mode: String, freq: String) {
     logger.info(s"=== Processing ${freq}ly reports ...")
 
     val df_step1 = proc_step1(df, freq)
@@ -133,8 +133,7 @@ class RptDriver(data_in: String, data_out: String,
     //    dfma.show()
   }
 
-
-  def PreSink(df: DataFrame, mq: String, mode: String, freq:String) = {
+  def PreSink(df: DataFrame, mq: String, mode: String, freq: String) = {
     logger.info(s"=== Report for $freq $mq is being generated ...")
     val rpt_prefix = prefix_s + "_" + mode + "_" + freq.toUpperCase() + "-" + mq
     writeToCsv(df, rpt_prefix)

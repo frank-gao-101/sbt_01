@@ -7,7 +7,6 @@ import java.time.{LocalDateTime, YearMonth}
 import com.amway.dms.{Constants => C}
 
 object Utils {
-
   type SymM = Map[Symbol, String]
   type SymL = List[Symbol]
   type PairSeq = Seq[(String, String)]
@@ -66,7 +65,7 @@ object Utils {
       sys.exit(1)
     }
 
-    if (!opt_map.contains('range) && !opt_map.contains('freq)  || (opt_map.contains('freq) &&
+    if (!opt_map.contains('range) && !opt_map.contains('freq) || (opt_map.contains('freq) &&
       !Seq(C.MM, C.QQ).contains(opt_map('freq).toString.toLowerCase))) {
       println(C.ERR_INVALID_FREQ);
       println(usage)
@@ -126,6 +125,7 @@ object Utils {
     //    println(s"before: diff=$diff, carry=$carry, y=$y, m=$m, delim=$delim")
 
     val init_seq = Seq[(Int, Int)]()
+
     def gen(y: Int, m: Int, n: Int, s: Seq[(Int, Int)]): Seq[(Int, Int)] = {
       n match {
 
@@ -175,8 +175,8 @@ object Utils {
   }
 
   def getTimeDiff(a: LocalDateTime, b: LocalDateTime): String = {
-    val min_diff = MINUTES.between(a,b)
-    val sec_diff = SECONDS.between(a,b)
+    val min_diff = MINUTES.between(a, b)
+    val sec_diff = SECONDS.between(a, b)
 
     s"$min_diff mins, $sec_diff seconds"
   }
