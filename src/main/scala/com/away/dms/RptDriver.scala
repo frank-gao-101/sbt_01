@@ -135,7 +135,7 @@ class RptDriver(data_in: String, data_out: String,
 
   def PreSink(df: DataFrame, mq: String, mode: String, freq: String) = {
     logger.info(s"=== Report for $freq $mq is being generated ...")
-    val rpt_prefix = prefix_s + "_" + mode + "_" + freq.toUpperCase() + "-" + mq
+    val rpt_prefix = prefix_s + "_" + mode.toUpperCase + "_" + freq.toUpperCase() + "-" + mq
     writeToCsv(df, rpt_prefix)
   }
 
