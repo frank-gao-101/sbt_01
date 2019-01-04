@@ -1,4 +1,4 @@
-name := "dms-reports"
+name := "sbt_01"
 
 version := "0.1"
 
