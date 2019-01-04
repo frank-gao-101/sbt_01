@@ -25,7 +25,7 @@ class RptDriver(data_in: String, data_out: String,
 
   def init() = {
     val spark = SparkSession.builder.appName("dms-reports")
-      .config("spark.master", "local")
+//      .config("spark.master", "local")
       .getOrCreate()
 
     spark.sparkContext.setLogLevel("INFO")
