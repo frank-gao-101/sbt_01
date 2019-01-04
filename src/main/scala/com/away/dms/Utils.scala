@@ -44,13 +44,13 @@ object Utils {
     ) = {
     val usage =
       """
-        | Usage: <program> --input <full_path_files
-        | >
+        | Usage: <dms-reports-program>
+        |     --input <full_path_files>
         |     --output <output_dir>
-        |     --mode <last|upto|all>
-        |     --freq <month|quarter>
-        |     [--range <2017Q1, 2017M01-2018M03, 2018M04..2018M06> ]
-        |     [--report-gen-prefix DMS ]
+        |     [--report-gen-prefix <Default: DMS>]
+        |     { --mode {last|upto|all}
+        |       --freq {month|quarter}
+        |     | --range <2017Q1, 2017M01-2018M03, 2018M04..2018M06> }
       """
 
     if (!opt_map.contains('input) || !opt_map.contains('output)) {
