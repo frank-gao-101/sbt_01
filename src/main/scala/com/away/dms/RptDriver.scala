@@ -30,7 +30,6 @@ class RptDriver(data_in: String, data_out: String,
 
     spark.sparkContext.setLogLevel("INFO")
     Logger.getLogger("org").setLevel(Level.OFF)
-    Logger.getLogger("akka").setLevel(Level.OFF)
 
     val startTime = Utils.getCurrDateTime()
     logger.info(s"=== dms report processing starts at $startTime")
@@ -126,11 +125,12 @@ class RptDriver(data_in: String, data_out: String,
 
   def proc_step3(df: DataFrame) = {
     df
-      .groupBy("TRX_ISO_CNTRY_CD", "DIST_ID", "BAL_TYPE_ID")
+      .groupBy("TRX_ISO_CNTRY_CD", "BAL_TYPE_ID", "DIST_ID")
       .agg(expr("sum(bal_amt) as TOTAL"))
       .withColumn("TOTAL", regexp_replace(format_number(col("TOTAL"), 2), ",", ""))
-      .orderBy("TRX_ISO_CNTRY_CD", "BAL_TYPE_ID", "DIST_ID", "TOTAL")
-    //    dfma.show()
+      .orderBy("TRX_ISO_CNTRY_CD", "BAL_TYPE_ID", "DIST_ID")
+      .selectExpr("TRX_ISO_CNTRY_CD", "BAL_TYPE_ID", "DIST_ID", "TOTAL")
+    //    .show()
   }
 
   def PreSink(df: DataFrame, mq: String, mode: String, freq: String) = {
