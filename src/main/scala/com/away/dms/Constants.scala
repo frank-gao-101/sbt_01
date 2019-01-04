@@ -1,6 +1,6 @@
 package com.amway.dms
 
-object Constant {
+object Constants {
   val MM = "month"
   val QQ = "quarter"
   val LAST = "last"

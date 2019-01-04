@@ -4,7 +4,7 @@ import java.time.temporal.ChronoUnit.{MINUTES, SECONDS}
 import java.time.temporal.IsoFields
 import java.time.{LocalDateTime, MonthDay, Year, YearMonth}
 
-import com.amway.dms.{Constant => C}
+import com.amway.dms.{Constants => C}
 
 object Utils {
 
@@ -166,7 +166,7 @@ object Utils {
     val prev3_ym = curr_ym.minusMonths(3)
     val last_q = prev3_ym.getYear.toString + C.Q + prev3_ym.get(IsoFields.QUARTER_OF_YEAR).toString
 
-    // println(s"=== last_month: $last_month , last_q: $last_q")
+    //println(s"=== last_month: $last_month , last_q: $last_q")
     (last_month, last_q)
   }
 

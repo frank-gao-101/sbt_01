@@ -5,7 +5,7 @@ import org.apache.spark.sql.functions._
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import org.apache.log4j.{Level, Logger}
-import com.amway.dms.{Constant => C, Utils => U}
+import com.amway.dms.{Constants => C, Utils => U}
 
 /*
    step 1: add column month and/or quarter
