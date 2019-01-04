@@ -166,7 +166,7 @@ object Utils {
     val prev3_ym = curr_ym.minusMonths(3)
     val last_q = prev3_ym.getYear.toString + C.Q + prev3_ym.get(IsoFields.QUARTER_OF_YEAR).toString
 
-    //    println(s"=== last_month: $last_month , last_q: $last_q")
+    // println(s"=== last_month: $last_month , last_q: $last_q")
     (last_month, last_q)
   }
 
