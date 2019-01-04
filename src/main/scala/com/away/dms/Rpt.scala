@@ -14,9 +14,8 @@ object Rpt {
     prefix
       ) = Utils.verifyArgs(opt_map)
 
-    //    range_seq.foreach(println)
+//    range.foreach(println)
     val rpt = new RptDriver(data_in, data_out, mode, freq, range, hasRange, prefix)
-//    val rpt = new RptDriver( Utils.verifyArgs(opt_map))
     rpt.init
   }
 
